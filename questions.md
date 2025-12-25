@@ -57,11 +57,11 @@ Bir kayıt işlemi için aşağıdaki çözüm dokümanı oluşturulmuştur, tes
 | Başlangıç Kayıt Tarihi    | Başlangıç kayıt tarihi seçimi yapılır.                                   |                                                        | Date         |
 | Bitiş Kayıt Tarihi        | Bitiş kayıt tarihi seçimi yapılır.                                       |                                                        | Date         |
 | Kaydı Yapan Kurum         | Kaydı yapan kurum seçilir.                                               | Sayfa ilk açıldığında Müdürlük Kayıtları seçili olarak görüntülenir. Kullanıcı tarafından değiştirilebilir. | Combobox     |
-| Bölge                     | Birden fazla bölge seçilebilir.                                          |                                                        | Combobox     |
-| İl                        | Bölge seçimi yapılmış ise seçime bağlı iller görüntülenir.               | Birden fazla il seçilebilir ya da il seçilmeden devam edilebilir. | Combobox     |
+| Bölge                     |                        |                                                        | Combobox     |
+| İl                        |          | Birden fazla il seçilebilir ya da il seçilmeden devam edilebilir. | Combobox     |
 | İlgili Müdürlük/Müdürlükler| Birden fazla müdürlük seçilebilir.                                      | Bölge ya da il seçimi yapılmadan Müdürlük seçilemez. En az biri seçilmeli. Bölge/İl seçimine bağlı olan müdürlükler görüntülenir. Müdürlük seçilmeden kayıt işlemi gerçekleştirilemez. | Combobox     |
 | Durumu                    | Kaydın durumunun seçimi yapılır.                                        | Aktif ve Pasif seçenekleri görüntülenir. Sayfa ilk açıldığında Aktif seçeneği seçili olarak görüntülenir. Kullanıcı tarafından değiştirilebilir. Tümü, Aktif, Pasif seçenekleri gelir. | Tümü    |
-| Kaydet                    | Kayıt işlemini başlatır.                                                |                                                        | Buton        |
+| Kaydet                    |                                               |                                                        | Buton        |
 
 
 ## Çalışma 3
