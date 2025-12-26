@@ -60,3 +60,7 @@ Scenario: Durum alanında varsayılan değer kontrolü
   Given Kullanıcı kayıt ekranını açar
   Then Durum alanında varsayılan olarak "Tümü" seçili olmalıdır
   And Kullanıcı "Aktif" veya "Pasif" seçeneklerini seçebilir
+```
+
+# Çalışma 3 - Otomasyon Çalışması
+Belgenet projesinde Tek imzacılı resmi yazı oluşturulması senaryosunun otomasyonu Python + Selenium ile gerçekleştirilmiştir. (belgenet_test.py)
