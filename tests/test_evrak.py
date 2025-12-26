@@ -25,8 +25,10 @@ def test_evrak_flow():
     evrak_page.imza_ekle("Deneme İmza Metni")
 
     file_path = resolve_real_path(
-        r"C:\Users\MSI\Downloads\file-sample_100kB.doc"
+        r"C:\Users\MSI\Downloads\file-sample.doc"
     )
+    
+    print(file_path)
 
     evrak_page.add_attachment(file_path=file_path)
     evrak_page.sign_document()
