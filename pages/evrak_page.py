@@ -26,16 +26,6 @@ class EvrakPage(BasePage):
     TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovTree:0_0_1_0']//span[contains(@class,'ui-treenode-label')]")
     TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
 
-
-    # # ========================= KLASÖR =========================
-    # TREE_BTN = (By.XPATH, "//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
-    # TREE_ROOT = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']/span/span[1]")
-    # TREE_ROOT2 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_0']/span/span[1]")
-    # TREE_ROOT3 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_0_1']/span/span[1]")
-    # TREE_CHILD = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_0_1_0']/span/span[3]")
-    # TREE_CLOSE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovOverlayPanelKapat']")
-
-
     # ========================= GEREĞİ =========================
     GEREGI_BTN = (By.ID, "yeniGidenEvrakForm:evrakBilgileriList:20:geregiLov:treeButton")
     GEREGI_DIALOG = (By.XPATH, "//*[contains(@id,'geregiLovlovDialogId')]")
@@ -177,11 +167,23 @@ class EvrakPage(BasePage):
         self.js_click(self.wait_clickable(self.EKLER_ADD_BTN))
 
     def onay_akisi(self):
+        # Dialog aç
         self.js_click(self.wait_clickable(self.ONAY_AKISI_BTN))
-        self.wait_visible(self.HIYERARSIK_DIALOG)
-        self.js_click(self.wait_clickable(self.ONAY_CHECKBOX))
-        self.js_click(self.wait_clickable(self.ONAY_OPTION_4))
-        self.js_click(self.wait_clickable(self.HIYERARSIK_KULLAN_BTN))
+
+        # Dialog görünür olana kadar bekle
+        self.wait_present(self.HIYERARSIK_DIALOG)
+
+        # Checkbox
+        self.js_click(self.wait_present(self.ONAY_CHECKBOX))
+
+        # Option (select içi)
+        self.js_click(self.wait_present(self.ONAY_OPTION_4))
+
+        # KRİTİK NOKTA
+        # element_to_be_clickable KULLANMIYORUZ
+        # çünkü DOM rerender oluyor
+        kullan_btn = self.wait_present(self.HIYERARSIK_KULLAN_BTN)
+        self.driver.execute_script("arguments[0].click();", kullan_btn)
 
     def sign_document(self):
         self.js_click(self.wait_clickable(self.SIGN_TAB_BTN))

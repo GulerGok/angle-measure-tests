@@ -62,5 +62,26 @@ Scenario: Durum alanında varsayılan değer kontrolü
   And Kullanıcı "Aktif" veya "Pasif" seçeneklerini seçebilir
 ```
 
-# Çalışma 3 - Otomasyon Çalışması
-Belgenet projesinde Tek imzacılı resmi yazı oluşturulması senaryosunun otomasyonu Python + Selenium ile gerçekleştirilmiştir. (python -m tests.test_evrak komutu ile çalıştırabilirsiniz)
+# Çalışma 3 - 📄 Belgenet Evrak Otomasyonu
+
+Belgenet projesinde **tek imzacılı resmi yazı oluşturulması** senaryosunun otomasyonu  
+**Python + Selenium** kullanılarak geliştirilmiştir.
+
+Otomasyon, dinamik DOM yapısına sahip Belgenet arayüzünde  
+**XPath tabanlı locator stratejileri** kullanılarak gerçekleştirilmiştir.
+
+---
+
+### 🚀 Kurulum
+
+Gerekli bağımlılıkları yüklemek için:
+
+```bash
+pip install -r requirements.txt
+```
+
+Test senaryosunu çalıştırmak için:
+
+```bash
+python -m tests.test_evrak
+```
