@@ -63,4 +63,4 @@ Scenario: Durum alanında varsayılan değer kontrolü
 ```
 
 # Çalışma 3 - Otomasyon Çalışması
-Belgenet projesinde Tek imzacılı resmi yazı oluşturulması senaryosunun otomasyonu Python + Selenium ile gerçekleştirilmiştir. (belgenet_test.py)
+Belgenet projesinde Tek imzacılı resmi yazı oluşturulması senaryosunun otomasyonu Python + Selenium ile gerçekleştirilmiştir. (python -m tests.test_evrak komutu ile çalıştırabilirsiniz)
