@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
+from utils.helpers import resolve_real_path
+
 import time, os
 
 class EvrakPage(BasePage):
@@ -203,6 +205,7 @@ class EvrakPage(BasePage):
             # İkinci form (Sayısal İmzala) görünür olana kadar bekle
             self.wait_visible(self.SIGN_DIALOG2)
 
+            time.sleep(2)
             # "Evet" butonu tıklanabilir olana kadar bekle
             evet_btn = self.wait_clickable(self.SIGN_EVET_BTN)
 
@@ -211,11 +214,13 @@ class EvrakPage(BasePage):
                 "arguments[0].scrollIntoView(true); arguments[0].click();", evet_btn
             )
 
+            time.sleep(2)
             # İkinci form DOM'dan kaybolana kadar bekle
             self.wait.until(EC.invisibility_of_element_located(self.SIGN_DIALOG2))
 
         except TimeoutException:
             print("İmza confirm dialogu açılamadı veya kapanmadı.")
+
 
     # def go_to_signed_documents(self):
     #     self.js_click(self.wait_clickable(self.ISLEM_YAPTIKLARIM_HEADER))
