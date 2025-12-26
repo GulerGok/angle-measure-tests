@@ -1,6 +1,7 @@
 from core.driver_factory import create_driver
 from pages.evrak_page import EvrakPage
 from pages.login_page import LoginPage
+from pages.left_menu_page import LeftMenuPage
 import time
 from utils.helpers import resolve_real_path
 
@@ -14,6 +15,7 @@ def test_evrak_flow():
 
     # Evrak işlemleri
     evrak_page = EvrakPage(driver)
+    left_menu = LeftMenuPage(driver)
 
     evrak_page.create_document()
     evrak_page.select_konu_kodu()
@@ -32,6 +34,8 @@ def test_evrak_flow():
 
     evrak_page.add_attachment(file_path=file_path)
     evrak_page.sign_document()
+    
+    left_menu.go_to_signed_documents()
 
     time.sleep(5)
     driver.quit()

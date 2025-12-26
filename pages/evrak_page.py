@@ -46,7 +46,7 @@ class EvrakPage(BasePage):
     CKEDITOR_IFRAME = (By.XPATH, "//*[@id='cke_2_contents']/iframe")
     CKEDITOR_BODY = (By.TAG_NAME, "body")
 
-    # ========================= EKLER =========================
+    # ========================= EKLER ============================
     EKLER_PANEL = (By.ID, "yeniGidenEvrakForm:leftTab:uiRepeat:2:panelGrid")
     EKLER_BTN = (By.ID, "yeniGidenEvrakForm:leftTab:uiRepeat:2:cmdbutton")
     EKLER_TEXTAREA = (By.ID, "yeniGidenEvrakForm:evrakEkTabView:dosyaAciklama")
@@ -65,9 +65,7 @@ class EvrakPage(BasePage):
     IMZA_INPUT = (By.ID, "yeniGidenEvrakForm:hitapEkInplaceTextId")
     IMZA_TAMAM_BTN = (By.XPATH, "//*[@id='yeniGidenEvrakForm:j_idt10870']")
 
-    # =========================
-    # ONAY AKIŞI
-    # =========================
+    # =========================ONAY AKIŞI=========================
     ONAY_AKISI_BTN = (By.XPATH, "//*[contains(@id,'otomatikOnayAkisiEkle')]")
     HIYERARSIK_DIALOG = (By.XPATH, "//*[contains(@id,'hiyerarsikAkisOlusturDialog')]")
     ONAY_CHECKBOX = (By.XPATH, "//*[contains(@id,'otomatikAkisKullaniciBirimListId_null_checkbox')]")
@@ -78,19 +76,13 @@ class EvrakPage(BasePage):
     )
     HIYERARSIK_KULLAN_BTN = (By.XPATH, "//*[contains(@id,'hiyerarsikAkisKullan')]")
 
-    # =========================
-    # EVRAK İMZALAMA
-    # =========================
+    # ========================= EVRAK İMZALAMA ==================
     SIGN_TAB_BTN = (By.ID, "yeniGidenEvrakForm:rightTab:uiRepeat:2:cmdbutton")
     SIGN_DIALOG = (By.XPATH, "//*[@id='evrakImzalaDialog']")
     SIGN_CONFIRM_BTN = (By.XPATH, "//*[@id='imzalaForm:sayisalImzaConfirmDialogOpener']")
     SIGN_EVET_BTN = (By.XPATH, "//*[@id='imzalaForm:sayisalImzaConfirmForm:sayisalImzaEvetButton']")
     SIGN_DIALOG2 = (By.XPATH, "//*[@id='imzalaForm:j_idt2802']")
-    
 
-    # ========================= İMZALANAN EVRAKLAR =========================
-    ISLEM_YAPTIKLARIM_HEADER = (By.XPATH, "//h3[text()='İşlem Yaptıklarım']")
-    ISLEM_ALT_MENU = (By.XPATH, "//*[@id='esm_715431183_emi_1191786840']/span")
 
     # ============================METODLAR=============================
 
@@ -221,7 +213,3 @@ class EvrakPage(BasePage):
         except TimeoutException:
             print("İmza confirm dialogu açılamadı veya kapanmadı.")
 
-
-    # def go_to_signed_documents(self):
-    #     self.js_click(self.wait_clickable(self.ISLEM_YAPTIKLARIM_HEADER))
-    #     self.js_click(self.wait_visible(self.ISLEM_ALT_MENU))
