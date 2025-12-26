@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
-
+import time, os
 
 class EvrakPage(BasePage):
 
@@ -83,6 +83,8 @@ class EvrakPage(BasePage):
     SIGN_DIALOG = (By.XPATH, "//*[@id='evrakImzalaDialog']")
     SIGN_CONFIRM_BTN = (By.XPATH, "//*[@id='imzalaForm:sayisalImzaConfirmDialogOpener']")
     SIGN_EVET_BTN = (By.XPATH, "//*[@id='imzalaForm:sayisalImzaConfirmForm:sayisalImzaEvetButton']")
+    SIGN_DIALOG2 = (By.XPATH, "//*[@id='imzalaForm:j_idt2802']")
+    
 
     # ========================= İMZALANAN EVRAKLAR =========================
     ISLEM_YAPTIKLARIM_HEADER = (By.XPATH, "//h3[text()='İşlem Yaptıklarım']")
@@ -117,6 +119,25 @@ class EvrakPage(BasePage):
         self.js_click(self.wait_present(self.GEREGI_ROOT))
         self.js_click(self.wait_present(self.GEREGI_CHILD))
         self.js_click(self.wait_present(self.GEREGI_CLOSE))
+
+    def onay_akisi(self):
+        # Dialog aç
+        self.js_click(self.wait_clickable(self.ONAY_AKISI_BTN))
+
+        # Dialog görünür olana kadar bekle
+        self.wait_present(self.HIYERARSIK_DIALOG)
+
+        # Checkbox
+        self.js_click(self.wait_present(self.ONAY_CHECKBOX))
+
+        # Option (select içi)
+        self.js_click(self.wait_present(self.ONAY_OPTION_4))
+
+        # KRİTİK NOKTA
+        # element_to_be_clickable KULLANMIYORUZ
+        # çünkü DOM rerender oluyor
+        kullan_btn = self.wait_present(self.HIYERARSIK_KULLAN_BTN)
+        self.driver.execute_script("arguments[0].click();", kullan_btn)
 
     def fill_editor(self, text):
         self.js_click(self.wait_clickable(self.EDITOR_BTN))
@@ -161,62 +182,41 @@ class EvrakPage(BasePage):
 
         if file_path:
             import pyautogui, time
-            time.sleep(2)
+            time.sleep(5)
             pyautogui.write(file_path)
+            time.sleep(2)
             pyautogui.press("enter")
-
+            time.sleep(2)
         self.js_click(self.wait_clickable(self.EKLER_ADD_BTN))
-
-    def onay_akisi(self):
-        # Dialog aç
-        self.js_click(self.wait_clickable(self.ONAY_AKISI_BTN))
-
-        # Dialog görünür olana kadar bekle
-        self.wait_present(self.HIYERARSIK_DIALOG)
-
-        # Checkbox
-        self.js_click(self.wait_present(self.ONAY_CHECKBOX))
-
-        # Option (select içi)
-        self.js_click(self.wait_present(self.ONAY_OPTION_4))
-
-        # 🔴 KRİTİK NOKTA
-        # element_to_be_clickable KULLANMIYORUZ
-        # çünkü DOM rerender oluyor
-        kullan_btn = self.wait_present(self.HIYERARSIK_KULLAN_BTN)
-        self.driver.execute_script("arguments[0].click();", kullan_btn)
-
-    # def sign_document(self):
-    #     self.js_click(self.wait_clickable(self.SIGN_TAB_BTN))
-    #     try:
-    #         self.wait_visible(self.SIGN_DIALOG)
-    #         self.js_click(self.wait_clickable(self.SIGN_CONFIRM_BTN))
-    #         self.js_click(self.wait_clickable(self.SIGN_EVET_BTN))
-    #     except TimeoutException:
-    #         print("İmza dialogu açılamadı.")
-
 
     def sign_document(self):
         # SIGN TAB'ı aç
         self.js_click(self.wait_clickable(self.SIGN_TAB_BTN))
 
         try:
-            # Confirm dialog DOM'da ve görünür mü?
+            # İlk confirm dialog görünür olana kadar bekle
             self.wait_visible(self.SIGN_DIALOG)
 
-            # "İmzala" butonuna tıklama
+            # İlk formdaki "İmzala" butonuna tıkla
             self.js_click(self.wait_clickable(self.SIGN_CONFIRM_BTN))
 
-            # "Evet" butonunu bul ve JS ile tıkla
-            evet_btn = self.wait_clickable(self.SIGN_EVET_BTN)
-            self.driver.execute_script("arguments[0].click();", evet_btn)
+            # İkinci form (Sayısal İmzala) görünür olana kadar bekle
+            self.wait_visible(self.SIGN_DIALOG2)
 
-            # Confirm dialog DOM'dan kaybolana kadar bekle
-            self.wait.until(EC.invisibility_of_element_located(self.SIGN_DIALOG))
+            # "Evet" butonu tıklanabilir olana kadar bekle
+            evet_btn = self.wait_clickable(self.SIGN_EVET_BTN)
+
+            # Butonu görünür yapmak için scrollIntoView ve JS tıklaması
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView(true); arguments[0].click();", evet_btn
+            )
+
+            # İkinci form DOM'dan kaybolana kadar bekle
+            self.wait.until(EC.invisibility_of_element_located(self.SIGN_DIALOG2))
 
         except TimeoutException:
             print("İmza confirm dialogu açılamadı veya kapanmadı.")
 
-    def go_to_signed_documents(self):
-        self.js_click(self.wait_clickable(self.ISLEM_YAPTIKLARIM_HEADER))
-        self.js_click(self.wait_visible(self.ISLEM_ALT_MENU))
+    # def go_to_signed_documents(self):
+    #     self.js_click(self.wait_clickable(self.ISLEM_YAPTIKLARIM_HEADER))
+    #     self.js_click(self.wait_visible(self.ISLEM_ALT_MENU))
