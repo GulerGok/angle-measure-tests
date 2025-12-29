@@ -3,12 +3,13 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from pages.base_page import BasePage
 
 class EvrakPage(BasePage):
 
-    
+
     # ========================= MENU =========================
     CREATE_MENU = (By.ID, "topMenuForm2:ust:0:ustMenuEleman")
     CREATE_BTN = (By.LINK_TEXT, "Evrak Oluştur")
@@ -21,18 +22,32 @@ class EvrakPage(BasePage):
     # KONU_KODU_CHILD = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovTree:1_2']/span/span[3]")
     # KONU_KODU_CLOSE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovOverlayPanelKapat']")
 
-    # ========================= KLASÖR =========================
-    TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
-    TREE_ROOT = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
-    TREE_ROOT2 = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1']//span[contains(@class,'ui-tree-toggler')]")
-    TREE_ROOT3 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1']//span[contains(@class,'ui-tree-toggler')]")
-    TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1_0']/span/span[3]/div")
-    TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
+    # ========================= KONU KODU (Kanunlar) =========================
+    KONU_KODU_INPUT = (By.XPATH, "//div[contains(@id,'konuKoduLov')]//input")
+    KONU_KODU_TREE_BTN = (By.XPATH, "//*[contains(@id,'konuKoduLov') and contains(@id,'treeButton')]")
+    KONU_KODU_DIALOG = (By.XPATH, "//*[contains(@id,'konuKoduLovlovDialogId')]")
+    KONU_KODU_ROOT = (By.XPATH, "//*[@id='//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovTree:0']/span/span[1]")
+    KONU_KODU_CHILD = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovTree:0_2']/span/span[3]")
+    KONU_KODU_CLOSE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovOverlayPanelKapat']")
 
-    #========================= KLASÖR =========================
+    # ========================= KLASÖR1 =========================
+    # TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
+    # TREE_ROOT = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
+    # TREE_ROOT2 = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1']//span[contains(@class,'ui-tree-toggler')]")
+    # TREE_ROOT3 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1']//span[contains(@class,'ui-tree-toggler')]")
+    # TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1_0']/span/span[3]/div")
+    # TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
+
+    #========================= KLASÖR2 =========================
     # TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
     # #TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:2']/span/span[3]/div")
     # TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
+
+    # ========================= KLASÖR (Kanunlar'ın alt verileri için) =========================
+    TREE_BTN = (By.ID, "yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:treeButton")
+    TREE_ROOT = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
+    TREE_CHILD = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1']//span[contains(@class,'lovItemTitle') and normalize-space(text())='Şikayetler']")
+    TREE_CLOSE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovOverlayPanelKapat']")
 
     # ========================= GEREĞİ =========================
     GEREGI_BTN = (By.ID, "yeniGidenEvrakForm:evrakBilgileriList:20:geregiLov:treeButton")
@@ -88,20 +103,20 @@ class EvrakPage(BasePage):
         self.js_click(self.wait_clickable(self.CREATE_MENU))
         self.js_click(self.wait_clickable(self.CREATE_BTN))
 
-    # def select_konu_kodu(self):
-    #     konu_input = self.wait_present(self.KONU_KODU_INPUT)
-    #     if not konu_input.get_attribute("value"):
-    #         self.js_click(self.wait_clickable(self.KONU_KODU_TREE_BTN))
-    #         self.wait_present(self.KONU_KODU_DIALOG)
-    #         self.js_click(self.wait_present(self.KONU_KODU_ROOT))
-    #         self.js_click(self.wait_present(self.KONU_KODU_CHILD))
-    #         self.js_click(self.wait_clickable(self.KONU_KODU_CLOSE))
+    def select_konu_kodu(self):
+        konu_input = self.wait_present(self.KONU_KODU_INPUT)
+        if not konu_input.get_attribute("value"):
+            self.js_click(self.wait_clickable(self.KONU_KODU_TREE_BTN))
+            self.wait_present(self.KONU_KODU_DIALOG)
+            self.js_click(self.wait_present(self.KONU_KODU_ROOT))
+            self.js_click(self.wait_present(self.KONU_KODU_CHILD))
+            self.js_click(self.wait_clickable(self.KONU_KODU_CLOSE))
 
     def select_folder(self):
         self.js_click(self.wait_clickable(self.TREE_BTN))
         self.js_click(self.wait_present(self.TREE_ROOT))
-        self.js_click(self.wait_present(self.TREE_ROOT2))
-        self.js_click(self.wait_present(self.TREE_ROOT3))
+        # self.js_click(self.wait_present(self.TREE_ROOT2))
+        # self.js_click(self.wait_present(self.TREE_ROOT3))
         self.js_click(self.wait_present(self.TREE_CHILD))
         self.js_click(self.wait_clickable(self.TREE_CLOSE))
 
@@ -191,7 +206,7 @@ class EvrakPage(BasePage):
             pyautogui.press("enter")
             time.sleep(2)
         self.js_click(self.wait_clickable(self.EKLER_ADD_BTN))
-        
+
     def sign_document(self):
         try:
             self.js_click(self.wait_clickable(self.SIGN_TAB_BTN))

@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 
 
 class LeftMenuPage(BasePage):
@@ -11,8 +10,10 @@ class LeftMenuPage(BasePage):
     ISLEM_YAPTIKLARIM_HEADER = (By.XPATH, "//h3[normalize-space()='İşlem Yaptıklarım']")
     IMZALADIKLARIM_MENU = (By.XPATH, "//span[normalize-space()='İmzaladıklarım']")
 
-    BIRIM_EVRAKLARI_HEADER = (By.XPATH,"//li[contains(@class,'birimEvraklari-icon')]//h3[contains(normalize-space(.),'Birim Evrakları')]")
-    TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH,"//a[.//span[contains(normalize-space(.),'Teslim Alınmayı Bekleyenler')]]")
+    BIRIM_EVRAKLARI_HEADER = (By.XPATH, "//li[contains(@class,'birimEvraklari-icon')]//h3[contains(normalize-space(.),'Birim Evrakları')]")
+    #TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "/html/body/div[8]/div[2]/form/div[5]/ul/li[2]")
+
+    TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "//a[contains(text(),'Teslim Alınmayı Bekleyenler')]")
 
     # ===== TABLO =====
     INBOX_TABLE = (By.ID, "mainInboxForm:inboxDataTable")
@@ -21,9 +22,7 @@ class LeftMenuPage(BasePage):
     # ========================= ORTAK =========================
     def _wait_table_ready(self):
         self.wait_visible(self.INBOX_TABLE)
-        self.wait.until(
-            lambda d: len(d.find_elements(*self.INBOX_ROWS)) > 0
-        )
+        self.wait.until(lambda d: len(d.find_elements(*self.INBOX_ROWS)) > 0)
 
     # ========================= İMZALADIKLARIM =========================
     def go_to_signed_documents(self):
@@ -48,18 +47,16 @@ class LeftMenuPage(BasePage):
         self.wait.until(
             lambda d: len(d.find_elements(*self.INBOX_ROWS)) > 0
         )
-
-    # ========================= İMZA TARİHİ VE GEREGİNİN KONTROLÜ =========================
+    
+      
+    # ========================= İMZA TARİHİ VE GEREĞİNİN KONTROLÜ =========================
     def check_signature_and_geregi(self, expected_time, expected_geregi):
         rows = self.driver.find_elements(*self.INBOX_ROWS)
 
         for row in rows:
-            row_text = self.driver.execute_script(
-                "return arguments[0].innerText;", row
-            )
+            row_text = row.text  # innerText yerine Selenium text daha stabil
             if expected_time in row_text and expected_geregi in row_text:
                 return True
-
         return False
 
     # ========================= LOG =========================
