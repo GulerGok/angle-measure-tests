@@ -1,4 +1,4 @@
-import pyautogui, time
+import pyautogui, time, os
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,18 +22,18 @@ class EvrakPage(BasePage):
     # KONU_KODU_CLOSE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovOverlayPanelKapat']")
 
     # ========================= KLASÖR =========================
-    # TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
-    # TREE_ROOT = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
-    # TREE_ROOT2 = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1']//span[contains(@class,'ui-tree-toggler')]")
-    # TREE_ROOT3 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1']//span[contains(@class,'ui-tree-toggler')]")
-    # TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1_0']/span/span[3]/div")
-    # TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
+    TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
+    TREE_ROOT = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
+    TREE_ROOT2 = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1']//span[contains(@class,'ui-tree-toggler')]")
+    TREE_ROOT3 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1']//span[contains(@class,'ui-tree-toggler')]")
+    TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1_1_0']/span/span[3]/div")
+    TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
 
     #========================= KLASÖR =========================
-    TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
-    TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:2']/span/span[3]/div")
-    TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
-    
+    # TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
+    # #TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:2']/span/span[3]/div")
+    # TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
+
     # ========================= GEREĞİ =========================
     GEREGI_BTN = (By.ID, "yeniGidenEvrakForm:evrakBilgileriList:20:geregiLov:treeButton")
     GEREGI_DIALOG = (By.XPATH, "//*[contains(@id,'geregiLovlovDialogId')]")
@@ -99,9 +99,9 @@ class EvrakPage(BasePage):
 
     def select_folder(self):
         self.js_click(self.wait_clickable(self.TREE_BTN))
-        # self.js_click(self.wait_present(self.TREE_ROOT))
-        # self.js_click(self.wait_present(self.TREE_ROOT2))
-        # self.js_click(self.wait_present(self.TREE_ROOT3))
+        self.js_click(self.wait_present(self.TREE_ROOT))
+        self.js_click(self.wait_present(self.TREE_ROOT2))
+        self.js_click(self.wait_present(self.TREE_ROOT3))
         self.js_click(self.wait_present(self.TREE_CHILD))
         self.js_click(self.wait_clickable(self.TREE_CLOSE))
 

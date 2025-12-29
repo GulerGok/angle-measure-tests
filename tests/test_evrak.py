@@ -38,14 +38,23 @@ def test_evrak_flow():
 
         # İMZALADIKLARIM
         left_menu.go_to_signed_documents()
-
-        # DOĞRULAMA
         assert left_menu.check_signature_and_geregi(
             imza_zamani,
             secilen_geregi
         ), f"Evrak bulunamadı → {imza_zamani} | {secilen_geregi}"
 
         print("İmzaladıklarım listesinde kayıt görüldü.")
+        
+        # ================= TESLİM ALINMAYI BEKLEYENLER =================
+        left_menu.go_to_teslim_alinmayi_bekleyenler()
+        assert left_menu.check_signature_and_geregi(
+            imza_zamani,
+            secilen_geregi
+        ), f"Teslim Alınmayı Bekleyenler listesinde yok → {imza_zamani} | {secilen_geregi}"
+
+        print("Teslim Alınmayı Bekleyenler listesinde evrak bulundu.")
+
+        print("TEST BAŞARIYLA TAMAMLANDI")
 
     finally:
         input("Test bitti. Tarayıcıyı kapatmak için Enter'a bas...")
