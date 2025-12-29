@@ -1,9 +1,11 @@
+import pyautogui, time
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
-from pages.base_page import BasePage
-import pyautogui, time
 from datetime import datetime
+from selenium.webdriver.common.action_chains import ActionChains
+from pages.base_page import BasePage
+
 class EvrakPage(BasePage):
 
     
@@ -20,13 +22,6 @@ class EvrakPage(BasePage):
     # KONU_KODU_CLOSE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:1:konuKoduLov:lovOverlayPanelKapat']")
 
     # ========================= KLASÖR =========================
-    # TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
-    # TREE_ROOT = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
-    # TREE_ROOT2 = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovTree:0_0']//span[contains(@class,'ui-tree-toggler')]")
-    # TREE_ROOT3 = (By.XPATH, "//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovTree:0_0_1']//span[contains(@class,'ui-tree-toggler')]")
-    # TREE_CHILD = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovTree:0_0_1_0']//span[contains(@class,'ui-treenode-label')]")
-    # TREE_CLOSE = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:""eklenecekKlasorlerLov:lovOverlayPanelKapat']")
-    #----
     # TREE_BTN = (By.XPATH,"//*[contains(@id,'eklenecekKlasorlerLov') and contains(@id,'treeButton')]")
     # TREE_ROOT = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0']//span[contains(@class,'ui-tree-toggler')]")
     # TREE_ROOT2 = (By.XPATH,"//*[@id='yeniGidenEvrakForm:evrakBilgileriList:4:eklenecekKlasorlerLov:lovTree:0_1']//span[contains(@class,'ui-tree-toggler')]")
@@ -112,27 +107,29 @@ class EvrakPage(BasePage):
 
     def select_geregi(self):
         self.js_click(self.wait_clickable(self.GEREGI_BTN))
-        self.wait_present(self.GEREGI_DIALOG)
-        self.js_click(self.wait_present(self.GEREGI_ROOT))
-        self.js_click(self.wait_present(self.GEREGI_CHILD))
-        self.js_click(self.wait_present(self.GEREGI_CLOSE))
+        self.wait_visible(self.GEREGI_DIALOG)
+        root = self.wait_visible(self.GEREGI_ROOT)
+        self.js_click(root)
+        child = self.wait_visible(self.GEREGI_CHILD)
+        secilen_geregi = child.text.strip()
+        self.driver.execute_script("arguments[0].click();", child)
+
+        # AJAX BİTİŞİ
+        self.wait.until(
+            lambda d: d.execute_script(
+                "return window.jQuery && jQuery.active === 0"
+            )
+        )
+
+        self.js_click(self.wait_visible(self.GEREGI_CLOSE))
+
+        return secilen_geregi
 
     def onay_akisi(self):
-        # Dialog aç
         self.js_click(self.wait_clickable(self.ONAY_AKISI_BTN))
-
-        # Dialog görünür olana kadar bekle
         self.wait_present(self.HIYERARSIK_DIALOG)
-
-        # Checkbox
         self.js_click(self.wait_present(self.ONAY_CHECKBOX))
-
-        # Option (select içi)
         self.js_click(self.wait_present(self.ONAY_OPTION_4))
-
-        # KRİTİK NOKTA
-        # element_to_be_clickable KULLANMIYORUZ
-        # çünkü DOM rerender oluyor
         kullan_btn = self.wait_present(self.HIYERARSIK_KULLAN_BTN)
         self.driver.execute_script("arguments[0].click();", kullan_btn)
 
@@ -177,11 +174,7 @@ class EvrakPage(BasePage):
 
         self.js_click(self.wait_clickable(self.IMZA_TAMAM_BTN))
 
-    def add_attachment(
-        self,
-        description="Bu evrak için ek açıklama metni girildi.",
-        file_path=None
-    ):
+    def add_attachment(self,description="Bu evrak için ek açıklama metni girildi.",file_path=None):
         self.js_click(self.wait_clickable(self.EKLER_PANEL))
         self.js_click(self.wait_clickable(self.EKLER_BTN))
 
@@ -198,87 +191,42 @@ class EvrakPage(BasePage):
             pyautogui.press("enter")
             time.sleep(2)
         self.js_click(self.wait_clickable(self.EKLER_ADD_BTN))
-
-    
-    # def sign_document(self):
-    #         # SIGN TAB'ı aç
-    #         self.js_click(self.wait_clickable(self.SIGN_TAB_BTN))
-
-    #         try:
-    #             # İlk confirm dialog görünür olana kadar bekle
-    #             self.wait_visible(self.SIGN_DIALOG)
-
-    #             # İlk formdaki "İmzala" butonuna tıkla
-    #             self.js_click(self.wait_clickable(self.SIGN_CONFIRM_BTN))
-
-    #             # İkinci form (Sayısal İmzala) görünür olana kadar bekle
-    #             self.wait_visible(self.SIGN_DIALOG2)
-
-    #             time.sleep(2)
-    #             # "Evet" butonu tıklanabilir olana kadar bekle
-    #             evet_btn = self.wait_clickable(self.SIGN_EVET_BTN)
-
-    #             # Butonu görünür yapmak için scrollIntoView ve JS tıklaması
-    #             self.driver.execute_script(
-    #                 "arguments[0].scrollIntoView(true); arguments[0].click();", evet_btn
-    #             )
-
-    #             time.sleep(2)
-    #             # İkinci form DOM'dan kaybolana kadar bekle
-    #             self.wait.until(EC.invisibility_of_element_located(self.SIGN_DIALOG2))
-
-    #         except TimeoutException:
-    #             print("İmza confirm dialogu açılamadı veya kapanmadı.")
         
-
-
     def sign_document(self):
         try:
-            # 1️⃣ SIGN TAB
             self.js_click(self.wait_clickable(self.SIGN_TAB_BTN))
 
-            # 2️⃣ İlk dialog (İmzala)
             self.wait_visible(self.SIGN_DIALOG)
-
-            # 3️⃣ "İmzala" butonu
             self.js_click(self.wait_clickable(self.SIGN_CONFIRM_BTN))
 
-            # 4️⃣ Sayısal imza dialogu
             self.wait_visible(self.SIGN_DIALOG2)
 
-            # 5️⃣ "Evet" butonu
             evet_btn = self.wait_clickable(self.SIGN_EVET_BTN)
-            self.driver.execute_script(
-                "arguments[0].scrollIntoView({block: 'center'});", evet_btn
-            )
-            self.driver.execute_script("arguments[0].click();", evet_btn)
 
-            # 6️⃣ Dialog tamamen kapandı mı?
+
+            ActionChains(self.driver) \
+                .move_to_element(evet_btn) \
+                .pause(0.3) \
+                .click(evet_btn) \
+                .perform()
+
+            # ---- Dialog kapandı mı? ----
             self.wait.until(
-                EC.invisibility_of_element_located(self.SIGN_DIALOG2)
+                lambda d: not d.find_element(*self.SIGN_DIALOG2).is_displayed()
             )
 
-            # 7️⃣ AJAX tamamlandı mı? (PrimeFaces güvenliği)
+            # ---- PrimeFaces AJAX döngüsü ----
             self.wait.until(
                 lambda d: d.execute_script(
-                    "return window.jQuery != undefined && jQuery.active === 0"
+                    "return window.PrimeFaces && PrimeFaces.ajax.Queue.isEmpty();"
                 )
             )
 
-            # 8️⃣ İmza zamanı (tek referans)
             imza_zamani = datetime.now().strftime("%d.%m.%Y %H:%M")
-            print(f"✅ İmza tamamlandı: {imza_zamani}")
-
-            self.save_signature_info(imza_zamani)
+            print(f"İmza tamamlandı: {imza_zamani}")
             return imza_zamani
 
         except TimeoutException as e:
-            print("❌ İmza akışı timeout oldu.")
+            print("İmza dialogu kapanmadı")
             print(e)
             return None
-
-
-    def save_signature_info(self, imza_zamani):
-        with open("signature_log.txt", "a", encoding="utf-8") as f:
-            f.write(f"[IMZA] {imza_zamani}\n")
-            f.flush()
