@@ -11,7 +11,7 @@ class LeftMenuPage(BasePage):
     IMZALADIKLARIM_MENU = (By.XPATH, "//span[normalize-space()='İmzaladıklarım']")
 
     BIRIM_EVRAKLARI_HEADER = (By.XPATH, "//li[contains(@class,'birimEvraklari-icon')]//h3[contains(normalize-space(.),'Birim Evrakları')]")
-    TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "//*[@id='leftMenuForm:leftMenuBirimEvraklari']/ul/li[2]")
+    TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "/html/body/div[8]/div[2]/form/div[5]/ul/li[2]")
 
     #TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "//a[contains(text(),'Teslim Alınmayı Bekleyenler')]")
 
