@@ -88,28 +88,9 @@ python -m tests.test_evrak
 
 # Çalışma 4 - 📄 Hata Raporu
 
-| Case ID | Test Case Başlığı | Amacı | Ön Koşullar | Test Adımları | Beklenen Sonuç | Öncelik | Şiddet | Test Verisi | Gerçek Sonuç | Durum | Hata ID (varsa) | Ortam | Testi Yapan | Test Tarihi | Notlar / Açıklamalar | Görsel |
-|---------|-----------------|-------|-------------|---------------|----------------|---------|--------|------------|--------------|-------|-----------------|-------|-------------|------------|---------------------|--------|
-| TC-01   | Aynı dosyanın çok defa kaydedilebilmesi    | Evrak eklerinde yüklenmiş olan dosyanın aynı evrağa tekrar yüklenmesinin engellenmesi  | Kullanıcı sisteme giriş yapmış olmalı        | 
-1. Üst menü > Evrak Oluştur menüsünü açın.
-2. Editör ve bilgilerini doldurun (Zorunlu alanlar doldurulmalı).
-3. Gereği alanında işlem yapılan birimi seçin.
-4. İmza alanından güncel kullanıcıyı imzacı olarak seçin ve “Kullan” butonuna tıklayın.
-5. Editör sekmesinde zorunlu alanları doldurun.
-6. Ekler sekmesine gidin.
-7. Ek Metni alanına veri girin.
-8. “Dosya Ekle” butonuna tıklayın.
-9. Dosyayı seçin.
-10. “Ekle” butonuna tıklayın.
-11. Tabloya dosyanın kaydının geldiğini teyit edin.
-12. “Dosya Ekle” butonuna tıklayarak aynı dosyayı tekrar seçin ve “Ekle” butonuna tıklayın.          | Evrağın ekine aynı dosya yüklenmek istenirse sistem tarafından izin verilmemeli ve kullanıcıya uyarı mesajı gösterilmelidir.         | Yüksek  | Major   | -       | -       | FAILED  | -       | https://www.belgenet.com.tr/ (Demo) | Güler GÖK       | 29.12.2025 | -              | ![Görsel](TC_01.png) |
+## Çalışma 4 - 📄 Hata Raporu
 
-| TC-02   |  Dosya eklenmeden imzalama işlemi     | Dosya yükleme işleminin zorunlu tutulması  | Kullanıcı sisteme giriş yapmış olmalı        | 
-1. Üst menü > Evrak Oluştur menüsünü açın.
-2. Editör ve bilgilerini doldurun (Zorunlu alanlar doldurulmalı).
-3. Gereği alanında işlem yapılan birimi seçin.
-4. İmza alanından güncel kullanıcıyı imzacı olarak seçin ve “Kullan” butonuna tıklayın.
-5. Editör sekmesinde zorunlu alanları doldurun.
-6. Ekler sekmesine gidin.
-7. Ek Metni alanına veri girin.
-8. Dosya eklenmeden İmzala butonuna tıklanır.          | Sistem “Dosya eklemek zorunludur” hatası verir ve imzalama işlemi gerçekleşmez          | Yüksek  | Major   | -       | Sistem “Dosya eklemek zorunludur” hatası verir ancak imzalama işlemi başarıyla tamamlanır.        | FAILED  | -       | https://www.belgenet.com.tr/ (Demo) | Güler GÖK       | 29.12.2025 | Evrak doğruluğu ve süreç güvenilirliği bozuluyor.           | -
+| Case ID | Test Case Başlığı | Amacı | Ön Koşullar | Test Adımları | Beklenen Sonuç | Öncelik | Şiddet | Test Verisi | Gerçek Sonuç | Durum | Hata ID (varsa) | Ortam | Testi Yapan | Test Tarihi | Notlar / Açıklamalar | Görsel |
+|--------|------------------|-------|-------------|---------------|----------------|---------|--------|------------|--------------|-------|-----------------|-------|-------------|------------|---------------------|--------|
+| TC-01 | Aynı dosyanın çok defa kaydedilebilmesi | Evrak eklerinde yüklenmiş olan dosyanın aynı evrağa tekrar yüklenmesinin engellenmesi | Kullanıcı sisteme giriş yapmış olmalı | Üst menü > Evrak Oluştur menüsünü açın.<br>Editör ve bilgilerini doldurun (zorunlu alanlar).<br>Gereği alanında işlem yapılan birimi seçin.<br>İmza alanında güncel kullanıcıyı seçip “Kullan” tıklayın.<br>Editör sekmesinde zorunlu alanları doldurun.<br>Ekler sekmesine gidin.<br>Ek Metni girin.<br>Dosya Ekle > Dosya seç > Ekle.<br>Dosyanın tabloya eklendiğini kontrol edin.<br>Aynı dosyayı tekrar eklemeyi deneyin. | Aynı dosya tekrar yüklenmek istendiğinde sistem izin vermemeli ve uyarı mesajı göstermelidir. | Yüksek | Major | - | Aynı dosya tekrar eklenebildi, sistem uyarı vermedi. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Aynı dosya kontrolü yapılmıyor. | ![TC-01](images/TC_01.png) |
+| TC-02 | Dosya eklenmeden imzalama işlemi | Dosya yükleme işleminin zorunlu tutulması | Kullanıcı sisteme giriş yapmış olmalı | Üst menü > Evrak Oluştur menüsünü açın.<br>Editör ve bilgilerini doldurun.<br>Gereği alanında işlem yapılan birimi seçin.<br>İmza alanında güncel kullanıcıyı seçip “Kullan” tıklayın.<br>Editör sekmesinde zorunlu alanları doldurun.<br>Ekler sekmesine gidin.<br>Ek Metni girin.<br>Dosya eklemeden İmzala butonuna tıklayın. | Sistem “Dosya eklemek zorunludur” hatası vermeli ve imzalama işlemi gerçekleşmemelidir. | Yüksek | Major | - | Sistem uyarı mesajı verdi ancak imzalama işlemi tamamlandı. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Evrak doğruluğu ve süreç güvenilirliği bozuluyor. | - |
