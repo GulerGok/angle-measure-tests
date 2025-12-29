@@ -92,25 +92,5 @@ python -m tests.test_evrak
 
 | Case ID | Test Case Başlığı | Amacı | Ön Koşullar | Test Adımları | Beklenen Sonuç | Öncelik | Şiddet | Test Verisi | Gerçek Sonuç | Durum | Hata ID (varsa) | Ortam | Testi Yapan | Test Tarihi | Notlar / Açıklamalar | Görsel |
 |--------|------------------|-------|-------------|---------------|----------------|---------|--------|------------|--------------|-------|-----------------|-------|-------------|------------|---------------------|--------|
-| TC-01 | Aynı dosyanın çok defa kaydedilebilmesi | Evrak eklerinde yüklenmiş olan dosyanın aynı evrağa tekrar yüklenmesinin engellenmesi | Kullanıcı sisteme giriş yapmış olmalı | 1. Üst menü > Evrak Oluştur menüsünü açın.<br>
-2. Editör ve bilgilerini doldurun (zorunlu alanlar).<br>
-3. Gereği alanında işlem yapılan birimi seçin.<br>
-4. İmza alanında güncel kullanıcıyı seçip “Kullan” butonuna tıklayın.<br>
-5. Editör sekmesinde zorunlu alanları doldurun.<br>
-6. Ekler sekmesine gidin.<br>
-7. Ek Metni alanına veri girin.<br>
-8. “Dosya Ekle” butonuna tıklayın.<br>
-9. Dosyayı seçin ve “Ekle” butonuna tıklayın.<br>
-10. Dosyanın tabloya eklendiğini kontrol edin.<br>
-11. “Dosya Ekle” butonuna tıklayarak aynı dosyayı tekrar seçin.<br>
-12. “Ekle” butonuna tıklayın.
- | Aynı dosya tekrar yüklenmek istendiğinde sistem izin vermemeli ve uyarı mesajı göstermelidir. | Yüksek | Major | - | Aynı dosya tekrar eklenebildi, sistem uyarı vermedi. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Aynı dosya kontrolü yapılmıyor. | ![TC-01](images/TC_01.png) |
-| TC-02 | Dosya eklenmeden imzalama işlemi | Dosya yükleme işleminin zorunlu tutulması | Kullanıcı sisteme giriş yapmış olmalı | 1. Üst menü > Evrak Oluştur menüsünü açın.<br>
-2. Editör ve bilgilerini doldurun (zorunlu alanlar).<br>
-3. Gereği alanında işlem yapılan birimi seçin.<br>
-4. İmza alanında güncel kullanıcıyı seçip “Kullan” butonuna tıklayın.<br>
-5. Editör sekmesinde zorunlu alanları doldurun.<br>
-6. Ekler sekmesine gidin.<br>
-7. Ek Metni alanına veri girin.<br>
-8. Dosya eklemeden “İmzala” butonuna tıklayın.
- | Sistem “Dosya eklemek zorunludur” hatası vermeli ve imzalama işlemi gerçekleşmemelidir. | Yüksek | Major | - | Sistem uyarı mesajı verdi ancak imzalama işlemi tamamlandı. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Evrak doğruluğu ve süreç güvenilirliği bozuluyor. | - |
+| TC-01 | Aynı dosyanın çok defa kaydedilebilmesi | Evrak eklerinde yüklenmiş olan dosyanın aynı evrağa tekrar yüklenmesinin engellenmesi | Kullanıcı sisteme giriş yapmış olmalı | Üst menü > Evrak Oluştur menüsünü açın.<br>Editör ve bilgilerini doldurun (zorunlu alanlar).<br>Gereği alanında işlem yapılan birimi seçin.<br>İmza alanında güncel kullanıcıyı seçip “Kullan” tıklayın.<br>Editör sekmesinde zorunlu alanları doldurun.<br>Ekler sekmesine gidin.<br>Ek Metni girin.<br>Dosya Ekle > Dosya seç > Ekle.<br>Dosyanın tabloya eklendiğini kontrol edin.<br>Aynı dosyayı tekrar eklemeyi deneyin. | Aynı dosya tekrar yüklenmek istendiğinde sistem izin vermemeli ve uyarı mesajı göstermelidir. | Yüksek | Major | - | Aynı dosya tekrar eklenebildi, sistem uyarı vermedi. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Aynı dosya kontrolü yapılmıyor. | ![TC-01](images/TC_01.png) |
+| TC-02 | Dosya eklenmeden imzalama işlemi | Dosya yükleme işleminin zorunlu tutulması | Kullanıcı sisteme giriş yapmış olmalı | Üst menü > Evrak Oluştur menüsünü açın.<br>Editör ve bilgilerini doldurun.<br>Gereği alanında işlem yapılan birimi seçin.<br>İmza alanında güncel kullanıcıyı seçip “Kullan” tıklayın.<br>Editör sekmesinde zorunlu alanları doldurun.<br>Ekler sekmesine gidin.<br>Ek Metni girin.<br>Dosya eklemeden İmzala butonuna tıklayın. | Sistem “Dosya eklemek zorunludur” hatası vermeli ve imzalama işlemi gerçekleşmemelidir. | Yüksek | Major | - | Sistem uyarı mesajı verdi ancak imzalama işlemi tamamlandı. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Evrak doğruluğu ve süreç güvenilirliği bozuluyor. | - |
