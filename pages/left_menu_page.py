@@ -11,9 +11,9 @@ class LeftMenuPage(BasePage):
     IMZALADIKLARIM_MENU = (By.XPATH, "//span[normalize-space()='İmzaladıklarım']")
 
     BIRIM_EVRAKLARI_HEADER = (By.XPATH, "//li[contains(@class,'birimEvraklari-icon')]//h3[contains(normalize-space(.),'Birim Evrakları')]")
-    #TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "/html/body/div[8]/div[2]/form/div[5]/ul/li[2]")
+    TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "//*[@id='leftMenuForm:leftMenuBirimEvraklari']/ul/li[2]")
 
-    TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "//a[contains(text(),'Teslim Alınmayı Bekleyenler')]")
+    #TESLIM_ALINMAYI_BEKLEYENLER_MENU = (By.XPATH, "//a[contains(text(),'Teslim Alınmayı Bekleyenler')]")
 
     # ===== TABLO =====
     INBOX_TABLE = (By.ID, "mainInboxForm:inboxDataTable")
@@ -31,23 +31,38 @@ class LeftMenuPage(BasePage):
         self._wait_table_ready()
 
     # ========================= TESLİM ALINMAYI BEKLEYENLER =========================
+    # def go_to_teslim_alinmayi_bekleyenler(self):
+    #     self.js_click(self.wait_clickable(self.ISLEM_YAPTIKLARIM_HEADER))
+    #     self.js_click(self.wait_clickable(self.BIRIM_EVRAKLARI_HEADER))
+    #     header = self.wait_clickable(self.BIRIM_EVRAKLARI_HEADER)
+    #     self.driver.execute_script("arguments[0].scrollIntoView(true);", header)
+    #     header.click()
+
+    #     # Alt menü görünür olana kadar bekle
+    #     submenu = self.wait_present(self.TESLIM_ALINMAYI_BEKLEYENLER_MENU)
+    #     submenu.click()
+
+    #     self.wait_visible(self.INBOX_TABLE)
+
+    #     self.wait.until(
+    #         lambda d: len(d.find_elements(*self.INBOX_ROWS)) > 0
+    #     )
+    
     def go_to_teslim_alinmayi_bekleyenler(self):
+        # Header aç
         self.js_click(self.wait_clickable(self.ISLEM_YAPTIKLARIM_HEADER))
-        self.js_click(self.wait_clickable(self.BIRIM_EVRAKLARI_HEADER))
+
         header = self.wait_clickable(self.BIRIM_EVRAKLARI_HEADER)
         self.driver.execute_script("arguments[0].scrollIntoView(true);", header)
-        header.click()
+        self.js_click(header)
 
-        # Alt menü görünür olana kadar bekle
-        submenu = self.wait_present(self.TESLIM_ALINMAYI_BEKLEYENLER_MENU)
-        submenu.click()
+        # Alt menüyü tıklayın
+        submenu = self.wait_clickable(self.TESLIM_ALINMAYI_BEKLEYENLER_MENU)
+        self.js_click(submenu)
 
-        self.wait_visible(self.INBOX_TABLE)
+        # Tabloyu bekleyin
+        self._wait_table_ready()
 
-        self.wait.until(
-            lambda d: len(d.find_elements(*self.INBOX_ROWS)) > 0
-        )
-    
       
     # ========================= İMZA TARİHİ VE GEREĞİNİN KONTROLÜ =========================
     def check_signature_and_geregi(self, expected_time, expected_geregi):

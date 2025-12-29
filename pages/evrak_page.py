@@ -200,11 +200,11 @@ class EvrakPage(BasePage):
         self.js_click(self.wait_clickable(self.EKLER_UPLOAD_BTN))
 
         if file_path:
-            time.sleep(5)
+            # time.sleep(3)
             pyautogui.write(file_path)
-            time.sleep(2)
+            # time.sleep(1)
             pyautogui.press("enter")
-            time.sleep(2)
+            time.sleep(1)
         self.js_click(self.wait_clickable(self.EKLER_ADD_BTN))
 
     def sign_document(self):
