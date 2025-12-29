@@ -40,7 +40,7 @@ class LeftMenuPage(BasePage):
         header.click()
 
         # Alt menü görünür olana kadar bekle
-        submenu = self.wait_visible(self.TESLIM_ALINMAYI_BEKLEYENLER_MENU)
+        submenu = self.wait_present(self.TESLIM_ALINMAYI_BEKLEYENLER_MENU)
         submenu.click()
 
         self.wait_visible(self.INBOX_TABLE)
