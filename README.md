@@ -29,7 +29,7 @@ hedeflenmiştir.
 ## 🔎 Not
 
 Tüm içerikler **Markdown formatında** hazırlanmıştır. Böylece GitHub üzerinde tablolar ve başlıklar düzenli şekilde görüntülenebilir.
-
+Ayrıca **loglama ve ekran görüntüsü (screenshot) alma gibi durumlar** da senaryolara eklenmiştir.
 
 
 
