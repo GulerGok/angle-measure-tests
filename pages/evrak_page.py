@@ -60,7 +60,8 @@ class EvrakPage(BasePage):
     EDITOR_BTN = (By.ID, "yeniGidenEvrakForm:leftTab:uiRepeat:1:cmdbutton")
     EDITOR_UST_VERI_BTN = (By.ID, "yeniGidenEvrakForm:hitapUstVeriEkle")
     EDITOR_INPUT = (By.ID, "yeniGidenEvrakForm:hitapEkInplaceTextId")
-    EDITOR_SAVE = (By.XPATH, "//*[@id='yeniGidenEvrakForm:j_idt10870']/span")
+    EDITOR_SAVE = (By.XPATH,"//div[contains(@id,'yeniGidenEvrakForm') and contains(@class,'ui-dialog')]""//table//button[span[text()='Tamam']]")
+
 
     # ========================= CKEDITOR =========================
     CKEDITOR_IFRAME = (By.XPATH, "//*[@id='cke_2_contents']/iframe")
@@ -154,7 +155,11 @@ class EvrakPage(BasePage):
         input_field = self.wait_visible(self.EDITOR_INPUT)
         input_field.clear()
         input_field.send_keys(text)
-        self.js_click(self.wait_present(self.EDITOR_SAVE))
+        #self.js_click(self.wait_present(self.EDITOR_SAVE))
+        
+        # Tamam butonunu tıkla
+        save_btn = self.wait_clickable(self.EDITOR_SAVE)
+        self.js_click(save_btn)
 
     def fill_ckeditor(self, text):
         iframe = self.wait_visible(self.CKEDITOR_IFRAME)
@@ -200,9 +205,9 @@ class EvrakPage(BasePage):
         self.js_click(self.wait_clickable(self.EKLER_UPLOAD_BTN))
 
         if file_path:
-            # time.sleep(3)
+            time.sleep(3)
             pyautogui.write(file_path)
-            # time.sleep(1)
+            time.sleep(1)
             pyautogui.press("enter")
             time.sleep(1)
         self.js_click(self.wait_clickable(self.EKLER_ADD_BTN))

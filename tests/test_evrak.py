@@ -8,14 +8,14 @@ def test_evrak_flow():
     driver = create_driver()
 
     try:
-        # LOGIN
+        # ================= LOGIN =================
         login_page = LoginPage(driver)
         login_page.login()
 
         evrak_page = EvrakPage(driver)
         left_menu = LeftMenuPage(driver)
 
-        # EVRAK
+        # ================= EVRAK OLUŞTUR =================
         evrak_page.create_document()
         evrak_page.select_folder()
         secilen_geregi = evrak_page.select_geregi()
@@ -24,19 +24,19 @@ def test_evrak_flow():
         evrak_page.fill_ckeditor("Test Evrak içeriği")
         evrak_page.imza_ekle("Deneme İmza Metni")
 
-        # EK
+        # ================= EK =================
         evrak_page.add_attachment(
             file_path=r"C:\Users\MSI\Downloads\file-sample.doc"
         )
 
-        # İMZA
+        # ================= İMZA =================
         imza_zamani = evrak_page.sign_document()
         assert imza_zamani is not None, "İmza başarısız"
 
-        # LOG
+        # ================= LOG =================
         left_menu.log_signature(imza_zamani, secilen_geregi)
 
-        # İMZALADIKLARIM
+        # ================= İMZALADIKLARIM =================
         left_menu.go_to_signed_documents()
         assert left_menu.check_signature_and_geregi(
             imza_zamani,
@@ -44,21 +44,18 @@ def test_evrak_flow():
         ), f"Evrak bulunamadı → {imza_zamani} | {secilen_geregi}"
 
         print("İmzaladıklarım listesinde kayıt görüldü.")
-        
+
         # ================= TESLİM ALINMAYI BEKLEYENLER =================
-        left_menu.go_to_teslim_alinmayi_bekleyenler()
-        assert left_menu.check_signature_and_geregi(
-            imza_zamani,
-            secilen_geregi
-        ), f"Teslim Alınmayı Bekleyenler listesinde yok → {imza_zamani} | {secilen_geregi}"
+        # Evrak No kontrolünü kullanarak fail durumunu yakala
+        left_menu.check_evrak_no_in_teslim_list(timeout_seconds=60, interval_seconds=5)
 
         print("Teslim Alınmayı Bekleyenler listesinde evrak bulundu.")
-
         print("TEST BAŞARIYLA TAMAMLANDI")
 
     finally:
         input("Test bitti. Tarayıcıyı kapatmak için Enter'a bas...")
         driver.quit()
+
 
 if __name__ == "__main__":
     test_evrak_flow()
