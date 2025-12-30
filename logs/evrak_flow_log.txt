@@ -4,3 +4,9 @@
 [30.12.2025 23:14:10] [TESLİM ALINMAYI BEKLEYENLER] Evrak No: 92392245-010.01-13526 | Screenshot: screenshots/teslim_listesi_20251230_231410.png
 [30.12.2025 23:17:45] [İMZALADIKLARIM] Evrak No: 92392245-010.01-13527 | İmza Zamanı: 30.12.2025 23:17 | Gereği: 2-KASTAMONU-DEMO | Screenshot: screenshots/imzaladiklarim_20251230_231745.png
 [30.12.2025 23:17:46] [TESLİM ALINMAYI BEKLEYENLER] Evrak No: 92392245-010.01-13527 | Screenshot: screenshots/teslim_listesi_20251230_231746.png
+[30.12.2025 23:25:04] [İMZALADIKLARIM] Evrak No: 92392245-010.01-13528 | İmza Zamanı: 30.12.2025 23:25 | Gereği: 2-KASTAMONU-DEMO | Screenshot: screenshots/imzaladiklarim_20251230_232504.png
+[30.12.2025 23:25:06] [TESLİM ALINMAYI BEKLEYENLER] Evrak No: 92392245-010.01-13528 | Screenshot: screenshots/teslim_listesi_20251230_232505.png
+[30.12.2025 23:26:45] [İMZALADIKLARIM] Evrak No: 92392245-010.01-13529 | İmza Zamanı: 30.12.2025 23:26 | Gereği: 2-KASTAMONU-DEMO | Screenshot: screenshots/imzaladiklarim_20251230_232644.png
+[30.12.2025 23:26:46] [TESLİM ALINMAYI BEKLEYENLER] Evrak No: 92392245-010.01-13529 | Screenshot: screenshots/teslim_listesi_20251230_232646.png
+[30.12.2025 23:28:55] [İMZALADIKLARIM] Evrak No: 92392245-010.01-13531 | İmza Zamanı: 30.12.2025 23:28 | Gereği: 2-KASTAMONU-DEMO | Screenshot: screenshots/imzaladiklarim_20251230_232854.png
+[30.12.2025 23:28:56] [TESLİM ALINMAYI BEKLEYENLER] Evrak No: 92392245-010.01-13531 | Screenshot: screenshots/teslim_listesi_20251230_232856.png

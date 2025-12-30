@@ -25,7 +25,8 @@ def test_evrak_flow():
 
         # ================= EK =================
         evrak_page.add_attachment(
-            file_path=r"C:\Users\MSI\Downloads\file-sample.doc"
+           # file_path=r"C:\Users\MSI\Downloads\file-sample.doc"
+            file_path=r"C:\Users\MSI\Downloads\500mb.txt"
         )
 
         # ================= İMZA =================
