@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
+import re
 from pages.base_page import BasePage
 
 class EvrakPage(BasePage):
