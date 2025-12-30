@@ -39,11 +39,24 @@ Bu rapor, verilen kayıt işlemi çözüm dokümanındaki eksik ve çelişkili n
 
 ## 📑 Özet
 
-- **Eksik kurallar:** Minimum değerler, maksimum uzunluklar, tarih aralığı validasyonu.  
-- **Çelişkiler:** İl seçimi opsiyonel mi değil mi, Müdürlük seçimi zorunluluğu, Durum alanında varsayılan değer.  
-- **Belirsizlikler:** Baba adı zorunlu mu, Kaydet butonunun hata senaryolarındaki davranışı.  
+## 📝 Eksik Kurallar
+- Minimum değerlerin tanımlanması gerekmektedir.  
+- Maksimum uzunlukların belirlenmesi gerekmektedir.  
+- Tarih aralığı için validasyon kurallarının eklenmesi gerekmektedir.  
 
-Bu noktalar netleştirilmeden test senaryoları tam olarak yazılamaz.
+## ⚖️ Çelişkiler
+- İl seçiminin opsiyonel olup olmadığı netleştirilmelidir.  
+- Müdürlük seçiminin zorunlu tutulup tutulmadığı belirlenmelidir.  
+- Durum alanında hangi değerin varsayılan olacağı kesinleştirilmelidir.  
+
+## ❓ Belirsizlikler
+- Baba adı alanının zorunlu olup olmadığı açıklığa kavuşturulmalıdır.  
+- Kaydet butonunun hata senaryolarındaki davranışı tanımlanmalıdır.  
+
+---
+
+📌 Bu noktalar netleştirilmeden test senaryoları eksiksiz ve doğru şekilde yazılamaz.
+
 
 ---
 
@@ -93,4 +106,4 @@ python -m tests.test_evrak
 | TC-01 | Aynı dosyanın çok defa kaydedilebilmesi | Evrak eklerinde yüklenmiş olan dosyanın aynı evrağa tekrar yüklenmesinin engellenmesi | Kullanıcı sisteme giriş yapmış olmalı | 1. Üst menü > Evrak Oluştur menüsünü açın.<br>2. Editör ve bilgilerini doldurun (Zorunlu alanlar doldurulmalı).<br>3. Gereği alanında işlem yapılan birimi seçin.<br>4. İmza alanından güncel kullanıcıyı imzacı olarak seçin ve “Kullan” butonuna tıklayın.<br>5. Editör sekmesinde zorunlu alanları doldurun.<br>6. Ekler sekmesine gidin.<br>7. Ek Metni alanına veri girin.<br>8. “Dosya Ekle” butonuna tıklayın.<br>9. Dosyayı seçin.<br>10. “Ekle” butonuna tıklayın.<br>11. Tabloya dosyanın kaydının geldiğini teyit edin.<br>12. “Dosya Ekle” butonuna tıklayarak aynı dosyayı tekrar seçin ve “Ekle” butonuna tıklayın. | Aynı dosya tekrar yüklenmek istendiğinde sistem izin vermemeli ve uyarı mesajı göstermelidir. | Orta | Kritik | - | Aynı dosya tekrar eklenebildi, sistem uyarı vermedi. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Aynı dosya kontrolü yapılmıyor. | ![TC_01.png](images/TC_01.png) | - |
 | TC-02 | Dosya eklenmeden imzalama işlemi | Dosya yükleme işleminin zorunlu tutulması | Kullanıcı sisteme giriş yapmış olmalı | 1. Üst menü > Evrak Oluştur menüsünü açın.<br>2. Editör ve bilgilerini doldurun (Zorunlu alanlar doldurulmalı).<br>3. Gereği alanında işlem yapılan birimi seçin.<br>4. İmza alanından güncel kullanıcıyı imzacı olarak seçin ve “Kullan” butonuna tıklayın.<br>5. Editör sekmesinde zorunlu alanları doldurun.<br>6. Ekler sekmesine gidin.<br>7. Ek Metni alanına veri girin.<br>8. Dosya eklenmeden İmzala butonuna tıklayın. | Sistem “Dosya eklemek zorunludur” hatası vermeli ve imzalama işlemi gerçekleşmemelidir. | Yüksek | Major | - | Sistem uyarı mesajı verdi ancak imzalama işlemi tamamlandı. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 29.12.2025 | Evrak doğruluğu ve süreç güvenilirliği bozuluyor. | ![TC_02a](images/TC_02a.png) | ![TC_02b](images/TC_02b.png) |
 | TC-03 | Teslim alınmayı bekleyenler listesine evrakın anında düşmemesi  | Evrakın imzalandıktan sonra teslim alınmayı bekleyenler listesine anında ve doğru şekilde eklenmesini sağlamak  | Kullanıcı sisteme giriş yapmış olmalı | 1. Yeni bir evrak oluşturun ve imzalayın.<br>2. Sol menüden İmzaladıklarım sayfasına gidin. Oluşturulan evrağın bilgilerini (gereği, imza tarihi/süresi vb.) görüntüleyin.<br>3. Ardından Teslim Alınmayı Bekleyenler sayfasına geçin.<br>4. Listede görüntülenen ilk kaydın, oluşturulan evrak olup olmadığını ve doğru şekilde ilk sırada yer alıp almadığını kontrol edin. | Evrak, imzalandıktan hemen sonra listede ilk sırada görünmelidir. | Orta | Major | - | Evrak listeye (4–5 dakika gibi) değişken sürelerle gecikmeli olarak düşüyor, ilk sırada görünmüyor.  | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 30.12.2025 | Evrak doğruluğu ve süreç güvenilirliği bozuluyor. | - | - |
-| TC_04 | Büyük boyutlu dosya yükleme kontrolü | Dosya boyutunun sistem limitlerine uygun olmasını sağlamak | Kullanıcı sisteme giriş yapmış olmalı | 1. Evrak oluşturma menüsünü açın.<br> 2. Zorunlu alanları doldurun.<br> 3. Gereği alanını seçin.<br> 4. İmza alanından kullanıcıyı seçin ve “Kullan” butonuna tıklayın.<br> 5. Editör sekmesinde zorunlu alanları doldurun.<br> 6. Ekler sekmesine gidin.<br> 7. Boyutu yüklenebilir maksimum dosya boyutunu geçen bir dosya yükleyin.<br> 8. Dosya eklenmeden **İmzala** butonuna tıklayın | Sistem “Dosya büyüklüğü uygun değildir!” hatası vermeli ve imzalama işlemi gerçekleşmemelidir. | Yüksek | Kritik | S500mb.txt bir dosya | Sistem hata mesajı verdi ancak dosya kaydı oluştu ve imzalama işlemi tamamlandı. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 30.12.2025 | Dosya boyutu validasyonu hatalı, evrak doğruluğu ve süreç güvenilirliği bozuluyor.|
+| TC_04 | Büyük boyutlu dosya yükleme kontrolü | Dosya boyutunun sistem limitlerine uygun olmasını sağlamak | Kullanıcı sisteme giriş yapmış olmalı | 1. Evrak oluşturma menüsünü açın.<br> 2. Zorunlu alanları doldurun.<br> 3. Gereği alanını seçin.<br> 4. İmza alanından kullanıcıyı seçin ve “Kullan” butonuna tıklayın.<br> 5. Editör sekmesinde zorunlu alanları doldurun.<br> 6. Ekler sekmesine gidin.<br> 7. Boyutu yüklenebilir maksimum dosya boyutunu geçen bir dosya yükleyin.<br> 8. Dosya eklenmeden **İmzala** butonuna tıklayın | Sistem “Dosya büyüklüğü uygun değildir!” hatası vermeli ve imzalama işlemi gerçekleşmemelidir. | Yüksek | Kritik | S500mb.txt bir dosya | Sistem hata mesajı verdi ancak dosya kaydı oluştu ve imzalama işlemi tamamlandı. | FAILED | - | https://www.belgenet.com.tr/ (Demo) | Güler GÖK | 30.12.2025 | Dosya boyutu validasyonu hatalı, evrak doğruluğu ve süreç güvenilirliği bozuluyor.| - | - |
